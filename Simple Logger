@@ -1,0 +1,92 @@
+#Picture/video with ammended text having DTG and Readings
+#imports
+#GPIO DHT11 AND Relay
+import RPi.GPIO as GPIO
+import time ,datetime
+#import Adafruit_DHT
+
+#Camera
+from picamera import PiCamera
+from time import sleep
+
+
+#DTG
+from datetime import datetime
+#pins
+#GPIO.setwarnings(False)
+#GPIO.setmode(GPIO.BCM)
+#GPIO.setup(4,GPIO.OUT)
+#sensor = Adafruit_DHT.DHT11  
+#DHT11_pin = 17
+#variables
+camera = PiCamera()
+
+#DTG to a string
+dt = datetime.now()
+DTG = dt.strftime('%Y-%m-%d %H:%M')
+day= dt.strftime('%Y-%m-%d')
+timet = dt.strftime('%H:%M')
+
+#printing confirmations and data
+print("Veg Room")
+print("Date "+ day)
+print("Time "+ timet)
+
+
+
+print("Taking Photo's Please wait")
+#camera Text
+camera.annotate_text = "Veg Room " + DTG +" "+ "temperatures" + " "+ "humidexs"
+camera.resolution = (3280, 2464)
+camera.start_preview(alpha=220)
+#this takes 10 pictures with a for loop
+for i in range(10):
+    camera.capture("/home/pi/Logger/Picture/Flower_Room{0:04d} ".format(i) + DTG + ".jpg")
+    camera.stop_preview()
+    sleep(5)
+print("Done taking photos, now on to video")   
+  
+
+
+#Tempfunction
+#this is the basic code for both i broke it up for logging purposes
+#def readings():
+#    humidity, temperature = Adafruit_DHT.read_retry(sensor, DHT11_pin)
+#    if humidity is not None and temperature is not None:
+#        return 'Temperature={0:0.1f}*C  Humidity={1:0.1f}%'.format(temperature, humidity)
+#    else:
+#        return "ENV N/A"
+#textdata=str(readings())
+# print(textdata)
+#temperature
+#def temperature():
+ #   humidity, temperature = Adafruit_DHT.read_retry(sensor, DHT11_pin)
+ #   if temperature is not None:
+ #       return 'Temperature={0:0.0f}*C'.format(temperature)
+ #   else:
+ #       return "ENV N/A"
+#temperatures=str(temperature())
+#print(temperatures)
+#humidity
+#def humidex():
+ #   humidity, temperature = Adafruit_DHT.read_retry(sensor, DHT11_pin)
+#   if humidity is not None:
+ #       return 'Humidity={1:0.0f}%'.format(temperature, humidity)
+ #   else:
+ #       return "ENV N/A"
+#humidexs= str(humidex())
+#print(humidexs)
+  
+#camera.resolution = (1920, 1080) 
+#print("camera resolution change")   
+#AFV function 
+##def afv():
+#    camera.exposure_mode = "nightpreview"
+#    camera.start_preview(alpha=200)
+#    camera.start_recording("/home/pi/Logger/Video/Flower_Room "+ DTG +".h264")
+#    sleep(20)
+#    camera.stop_recording()
+#    camera.stop_preview()
+#video = afv()
+#print("Done taking Video You may access your information")
+#video
