@@ -1,0 +1,36 @@
+#this will check the hour and turn on or off the relay
+#if watering is needed then it will turn on 900 seconds = 15 mins
+#this can be schedueled with cron
+
+#import the GPIO and TIME
+import RPi.GPIO as GPIO
+import time
+from datetime import datetime
+
+#GPIO PIN SETUP
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(4,GPIO.OUT)
+
+#Set up a few variables
+dt = datetime.now()
+DTG = dt.strftime('%Y-%m-%d %H:%M')
+textDTG=str(DTG)
+
+#set up a log file
+
+#turned the water_check into a function so i can call and log
+def water_check():
+    if dt.hour == 12 or dt.hour == 6 or dt.hour == 18:
+        GPIO.output(4,True)
+        time.sleep(5)
+        GPIO.output(4,False)
+        GPIO.cleanup()
+        return "Watering done done on " + textDTG
+    else:
+        GPIO.output(4,False)
+        time.sleep(3)
+        GPIO.cleanup()
+        return "No watering needed at " + textDTG
+#function that will log the event
+print(water_check())
