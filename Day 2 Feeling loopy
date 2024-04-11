@@ -1,0 +1,7 @@
+# 100 days by nbarrel
+#April 11 2024
+
+# Make it count to 10 "
+
+for number in range(1, 11):
+  print(number)
