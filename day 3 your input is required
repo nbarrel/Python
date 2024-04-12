@@ -1,0 +1,7 @@
+# 100 days by nbarrel
+#April 12 2024
+#your input is required
+# have a simple greeting with reading the persons name
+#Lets grab the name
+name = input("Good day may you please type your name")
+print(f"Good day {$name} I hope you have a wonderful day!")
