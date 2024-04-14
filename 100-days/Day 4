@@ -1,0 +1,36 @@
+#100 days by nbarrel
+#April 14 2024
+#Day 4
+#Files and directories
+#lets interact and create/modify simple files and directories
+
+#import our libraries
+
+import os
+from pathlib import Path
+
+# Define the file path use the r to show raw string
+#python wants to use the backslash as an escape Character. there are two methods to get around either by double backslash or raw string
+
+file_path = Path(r'c:\test\createdfile.txt')
+
+# Check if the file exists
+#Here is where I had issues with the file i had to start opening and creating with an encoder due to me getting other character sets in the file
+if file_path.exists():
+    print(f"{file_path} exists.")
+else:
+    print(f"{file_path} does not exist, creating file and directory if necessary.")
+    # Ensure the directory exists
+    os.makedirs(file_path.parent, exist_ok=True)
+    # Create the file by opening it in append mode
+    with open(file_path, 'a', encoding='utf-8') as file:
+        pass  # Just create the file, no need to write anything yet
+
+# Append text to the file
+with open(file_path, 'a', encoding='utf-8') as file:
+    file.write("Have a wonderful day! Python\n")
+
+# Verify by reading from the file
+print("Current contents of the file:")
+with open(file_path, 'r', encoding='utf-8') as file:
+    print(file.read())
