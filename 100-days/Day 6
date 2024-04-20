@@ -1,0 +1,39 @@
+#100 days by nbarrel
+#April 20 2024
+#Day 6
+# Dealing with CSV's 
+#This Exercise is from some work I had to do a while ago. I was frequently handed CSV files and had to parse them to exract the info
+#A common example is when you are doing software maintaince and need to find out when the last time the software contacted the servers.
+#today I learned how to accomplish the task with python, Of course AI has helped me along 
+
+
+import csv
+from datetime import datetime, timedelta
+
+# variable
+file_path = r"C:\test\parse.csv"  
+# Use raw string (r"path")for Windows paths this prevents the backslash from being interpreted as a escape symbol
+analyze_responses(file_path)
+
+
+#function to take filepath it will open the file with read (mode='r') and sets my counter variables
+def analyze_responses(file_path):
+    with open(file_path, mode='r') as file:
+        reader = csv.DictReader(file)
+        less_30_days = 0
+        more_60_days = 0
+        today = datetime.today()
+#this loop only will return the outcome and not much more. If i wanted to save and log the data i would open/create file here
+        for row in reader:
+            last_response = datetime.strptime(row['Last Response'], '%Y-%m-%d')
+            delta = today - last_response
+#using the loop i would use the outcome to output the hostname,version,and date of last contact
+            if delta <= timedelta(days=30):
+                less_30_days += 1
+            elif delta > timedelta(days=60):
+                more_60_days += 1
+        print(f"Hosts with last response within last 30 days: {less_30_days}")
+        print(f"Hosts with last response more than 60 days ago: {more_60_days}")
+
+
+
