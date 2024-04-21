@@ -1,0 +1,26 @@
+#100 days by nbarrel
+#April 21 2024
+#Day 7
+#Let's check disk space
+#Checking disk space may be a task that is required. even though most enterprise systems have monitors this is useful
+#When you have look at systems not attched to the monitoring solution.
+#I wanted to showcase some other ways of approaching outputs. I wanted it to disply in the terminal and output to a file. unfortunatley i ran into encoding errors that I did not have time to troubleshoot (maybe a future excercise with psutils.
+#in python there is no tee :(
+
+import psutil
+import time 
+
+# Set the alert threshold
+threshold = 90
+
+# Check disk usage
+for partition in psutil.disk_partitions():
+    usage = psutil.disk_usage(partition.mountpoint)
+    message = f"{partition.device} {usage.percent}%"
+    print(message)  # Output to the terminal
+    
+    if usage.percent >= threshold:
+        alert_message = f"Running out of space: {partition.device} at {usage.percent}%"
+        print(alert_message)  # Output warning to the terminal
+    
+    time.sleep(3)  # Pause for 3 seconds before continuing to the next iteration
