@@ -1,0 +1,13 @@
+#100 days by nbarrel
+#April 23 2024
+#Day 8
+#Simple Time and date things
+#Lets display the time every 5 secs
+#simple loops, display time, useful when doing logging such as my gardening project
+
+import time
+
+for _ in range(3):
+#this prints the day and time as a string making it useful for writing to a file
+    print(time.strftime("%Y-%m-%d %H:%M:%S"))  
+    time.sleep(5)  # Wait for 5 seconds
