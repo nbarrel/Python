@@ -1,0 +1,10 @@
+#100 days by nbarrel
+#April 24 2024
+#Day 9
+#Lets find the amount of ram
+
+import psutil
+
+
+total_memory = psutil.virtual_memory().total / (1024 ** 3) 
+print(f"Total Memory: {total_memory:.2f} GB")
