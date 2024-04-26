@@ -3,8 +3,12 @@
 #Day 10
 #Listening in
 
-#!/bin/bash
+import psutil
 
 
-netstat -tulnp
-#or ss -tulnp
+connections = psutil.net_connections()
+
+for conn in connections:
+    print(f"Local address: {conn.laddr.ip}:{conn.laddr.port} "
+          f"Remote address: {conn.raddr.ip if conn.raddr else 'N/A'}:{conn.raddr.port if conn.raddr else 'N/A'} "
+          f"Status: {conn.status} PID: {conn.pid}")
