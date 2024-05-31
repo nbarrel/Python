@@ -1,0 +1,14 @@
+# 100 days by nbarrel
+#Day 12 
+#is it even or odd like me 
+#May 31 2024
+
+def is_even(number):
+    if number % 2 == 0:
+        print(f"{number} is even.")
+    else:
+        print(f"{number} is odd.")
+
+# Test the function
+is_even(12)
+is_even(99)
